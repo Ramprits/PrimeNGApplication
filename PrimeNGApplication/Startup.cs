@@ -7,6 +7,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
+using PrimeNGApplication.Entity;
+using Microsoft.EntityFrameworkCore;
+using PrimeNGApplication.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace PrimeNGApplication
 {
@@ -24,18 +30,61 @@ namespace PrimeNGApplication
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+
+            services.AddDbContext<PrimengdbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddCors(cfg =>
+            {
+                cfg.AddPolicy("MyApplication", bldr =>
+                {
+                    bldr.AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+
+                cfg.AddPolicy("AnyGET", bldr =>
+                {
+                    bldr.AllowAnyHeader()
+                       .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+            });
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+                        if (exceptionHandlerFeature != null)
+                        {
+                            var logger = loggerFactory.CreateLogger("Global exception logger");
+                            logger.LogError(500,
+                                exceptionHandlerFeature.Error,
+                                exceptionHandlerFeature.Error.Message);
+                        }
+
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+
+                    });
+                });
+            }
 
             app.UseMvc();
         }
