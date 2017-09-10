@@ -16,6 +16,36 @@ namespace PrimeNGApplication.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("PrimeNGApplication.Entity.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("OrderCount");
+
+                    b.Property<int>("StateId");
+
+                    b.Property<int>("Zip");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("PrimeNGApplication.Entity.Department", b =>
                 {
                     b.Property<int>("DepartmentId")
@@ -56,6 +86,26 @@ namespace PrimeNGApplication.Migrations
                     b.ToTable("Employee","mst");
                 });
 
+            modelBuilder.Entity("PrimeNGApplication.Entity.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CustomerId");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<string>("Product");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("PrimeNGApplication.Entity.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -86,6 +136,20 @@ namespace PrimeNGApplication.Migrations
                     b.ToTable("Product");
                 });
 
+            modelBuilder.Entity("PrimeNGApplication.Entity.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Abbreviation");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+                });
+
             modelBuilder.Entity("PrimeNGApplication.Entity.Tag", b =>
                 {
                     b.Property<int>("TagId")
@@ -100,6 +164,21 @@ namespace PrimeNGApplication.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Tag");
+                });
+
+            modelBuilder.Entity("PrimeNGApplication.Entity.Customer", b =>
+                {
+                    b.HasOne("PrimeNGApplication.Entity.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PrimeNGApplication.Entity.Order", b =>
+                {
+                    b.HasOne("PrimeNGApplication.Entity.Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("PrimeNGApplication.Entity.Tag", b =>

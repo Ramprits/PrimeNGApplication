@@ -10,6 +10,10 @@ namespace PrimeNGApplication.Entity
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<State> States { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=PrimeNGDB;Integrated Security=True");

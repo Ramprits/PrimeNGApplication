@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="1.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrimeNGApplication.Interface\PrimeNGApplication.Interface.csproj" />
+    <ProjectReference Include="..\PrimeNGApplication.Repository\PrimeNGApplication.Repository.csproj" />
+    <ProjectReference Include="..\PrimeNGApplication.ViewModel\PrimeNGApplication.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

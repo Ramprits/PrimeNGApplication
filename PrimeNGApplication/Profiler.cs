@@ -2,11 +2,6 @@
 using PrimeNGApplication.EmployeeViewModel;
 using PrimeNGApplication.Entity;
 using PrimeNGApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrimeNGApplication
 {
@@ -20,6 +15,7 @@ namespace PrimeNGApplication
             CreateMap<CreateDepartmentDto, Department>().ReverseMap();
             CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<UpdateDepartmentDto, Department>().ReverseMap();
+
         }
     }
 }

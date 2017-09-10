@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +7,11 @@ using AutoMapper;
 using PrimeNGApplication.Entity;
 using Microsoft.EntityFrameworkCore;
 using PrimeNGApplication.Service;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Diagnostics;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using PrimeNGApplication.Data;
+using PrimeNGApplication.Repository;
+using PrimeNGApplication.Interface;
 
 namespace PrimeNGApplication
 {
@@ -35,9 +34,18 @@ namespace PrimeNGApplication
 
             services.AddDbContext<PrimengdbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<AdventureworksContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("AdventureWorks")));
+
+
             services.AddAutoMapper();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
+
             services.AddCors(cfg =>
             {
                 cfg.AddPolicy("MyApplication", bldr =>
@@ -53,38 +61,47 @@ namespace PrimeNGApplication
                         .AllowAnyOrigin();
                 });
             });
-            services.AddMvc();
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(new RequireHttpsAttribute());
+            })
+           .AddJsonOptions(opt =>
+           {
+               opt.SerializerSettings.ReferenceLoopHandling =
+                 ReferenceLoopHandling.Ignore;
+           });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler(appBuilder =>
-                {
-                    appBuilder.Run(async context =>
-                    {
-                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
-                        if (exceptionHandlerFeature != null)
-                        {
-                            var logger = loggerFactory.CreateLogger("Global exception logger");
-                            logger.LogError(500,
-                                exceptionHandlerFeature.Error,
-                                exceptionHandlerFeature.Error.Message);
-                        }
+            //app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler(appBuilder =>
+            //    {
+            //        appBuilder.Run(async context =>
+            //        {
+            //            var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+            //            if (exceptionHandlerFeature != null)
+            //            {
+            //                var logger = loggerFactory.CreateLogger("Global exception logger");
+            //                logger.LogError(500,
+            //                    exceptionHandlerFeature.Error,
+            //                    exceptionHandlerFeature.Error.Message);
+            //            }
 
-                        context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
+            //            context.Response.StatusCode = 500;
+            //            await context.Response.WriteAsync("An unexpected fault happened. Try again later.");
 
-                    });
-                });
-            }
+            //        });
+            //    });
+            //}
 
             app.UseMvc();
         }
