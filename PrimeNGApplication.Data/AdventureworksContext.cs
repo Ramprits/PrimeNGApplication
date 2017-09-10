@@ -6,6 +6,9 @@ namespace PrimeNGApplication.Data
 {
     public partial class AdventureworksContext : DbContext
     {
+        public AdventureworksContext(DbContextOptions<AdventureworksContext> options)
+        : base(options)
+        { }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<AddressType> AddressType { get; set; }
         public virtual DbSet<AwbuildVersion> AwbuildVersion { get; set; }

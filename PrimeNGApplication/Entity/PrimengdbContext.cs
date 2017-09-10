@@ -6,6 +6,9 @@ namespace PrimeNGApplication.Entity
 {
     public partial class PrimengdbContext : DbContext
     {
+        public PrimengdbContext(DbContextOptions<PrimengdbContext> options)
+        : base(options)
+        { }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Product> Products { get; set; }

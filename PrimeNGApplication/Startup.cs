@@ -33,10 +33,10 @@ namespace PrimeNGApplication
         {
 
             services.AddDbContext<PrimengdbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(("DefaultConnection")));
 
             services.AddDbContext<AdventureworksContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("AdventureWorks")));
+            options.UseSqlServer(("AdventureWorks")));
 
 
             services.AddAutoMapper();
