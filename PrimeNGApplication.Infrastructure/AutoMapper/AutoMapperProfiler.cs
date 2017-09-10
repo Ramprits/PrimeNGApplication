@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using PrimeNGApplication.Data;
+using PrimeNGApplication.ViewModel.EmployeeViewModel;
+using PrimeNGApplication.ViewModel.Models;
 using PrimeNGApplication.ViewModel.Store;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrimeNGApplication.Infrastructure.AutoMapper
 {
@@ -14,6 +11,11 @@ namespace PrimeNGApplication.Infrastructure.AutoMapper
         public AutoMapperProfiler()
         {
             CreateMap<Store, StoreVM>().ReverseMap();
+            CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<CreateEmployee, Employee>().ReverseMap();
+            CreateMap<CreateDepartmentDto, Department>().ReverseMap();
+            CreateMap<Department, DepartmentDto>().ReverseMap();
+            CreateMap<UpdateDepartmentDto, Department>().ReverseMap();
         }
     }
 }

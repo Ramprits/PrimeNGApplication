@@ -1,15 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PrimeNGApplication.Service;
 using Microsoft.AspNetCore.Cors;
 using PrimeNGApplication.Infrastructure;
-using PrimeNGApplication.Entity;
-using Microsoft.EntityFrameworkCore;
-using PrimeNGApplication.Data;
 using PrimeNGApplication.Interface;
 using AutoMapper;
 using Microsoft.Extensions.Logging;

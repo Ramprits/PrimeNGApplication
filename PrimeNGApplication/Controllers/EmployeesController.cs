@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PrimeNGApplication.Service;
 using AutoMapper;
-using PrimeNGApplication.EmployeeViewModel;
 using PrimeNGApplication.Entity;
 using Microsoft.AspNetCore.Cors;
+using PrimeNGApplication.ViewModel.EmployeeViewModel;
 
 namespace PrimeNGApplication.Controllers
 {
