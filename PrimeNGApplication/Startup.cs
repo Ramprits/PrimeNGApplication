@@ -4,9 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
-using PrimeNGApplication.Entity;
 using Microsoft.EntityFrameworkCore;
-using PrimeNGApplication.Service;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using PrimeNGApplication.Data;
@@ -32,18 +30,11 @@ namespace PrimeNGApplication
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<PrimengdbContext>(options =>
-               options.UseSqlServer(("DefaultConnection")));
-
             services.AddDbContext<AdventureworksContext>(options =>
             options.UseSqlServer(("AdventureWorks")));
 
 
             services.AddAutoMapper();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-
-            services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<IStoreRepository, StoreRepository>();
 
             services.AddCors(cfg =>
