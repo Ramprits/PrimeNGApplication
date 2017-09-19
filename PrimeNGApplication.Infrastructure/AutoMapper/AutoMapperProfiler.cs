@@ -16,6 +16,7 @@ namespace PrimeNGApplication.Infrastructure.AutoMapper
             CreateMap<CreateDepartmentDto, Department>().ReverseMap();
             CreateMap<Department, DepartmentDto>().ReverseMap();
             CreateMap<UpdateDepartmentDto, Department>().ReverseMap();
+            CreateMap<CreateStore,Store>().ReverseMap();
         }
     }
 }

@@ -7,6 +7,8 @@ using PrimeNGApplication.Interface;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PrimeNGApplication.ViewModel.Store;
+using System;
+using PrimeNGApplication.Data;
 
 namespace PrimeNGApplication.Controllers
 {
@@ -23,14 +25,23 @@ namespace PrimeNGApplication.Controllers
             _Logger = loggerFactory.CreateLogger(typeof(StoreController));
 
         }
-
         [HttpGet, NoCache]
         public async Task<IActionResult> Get()
         {
-            var StoreEntity = await _repo.GetStoresAsync();
-            return Ok(_mapper.Map<IEnumerable<StoreVM>>(StoreEntity));
+            try
+            {
+                var StoreEntity = await _repo.GetStoresAsync();
+                return Ok(_mapper.Map<IEnumerable<StoreVM>>(StoreEntity));
+            }
+            catch (Exception ex)
+            {
+
+                _Logger.LogError($"{ex.Message}");
+            }
+            return BadRequest();
+
         }
-        [HttpGet("{BusinessEntityID}",Name ="GetStore"), NoCache]
+        [HttpGet("{BusinessEntityID}", Name = "GetStore"), NoCache]
         public async Task<IActionResult> GetStore(int BusinessEntityID)
         {
             if (await _repo.StoreExists(BusinessEntityID))
@@ -39,6 +50,29 @@ namespace PrimeNGApplication.Controllers
                 return Ok(getStore);
             }
             return BadRequest();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CreateStore store)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest($"Server error");
+            }
+            try
+            {
+                var InertStoreEntity = _mapper.Map<Store>(store);
+                _repo.InsertStoreAsync(InertStoreEntity);
+                if (!await _repo.SaveAllAsync())
+                {
+                    return StatusCode(500, "A problem happened with handling your request.");
+                }
+                return Created("GetStore", InertStoreEntity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
         }
 

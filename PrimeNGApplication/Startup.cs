@@ -30,10 +30,7 @@ namespace PrimeNGApplication
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<AdventureworksContext>(options =>
-            options.UseSqlServer(("AdventureWorks")));
-
-
+            services.AddDbContext<AdventureworksContext>(options => options.UseSqlServer(("AdventureWorks")));
             services.AddAutoMapper();
             services.AddScoped<IStoreRepository, StoreRepository>();
 
