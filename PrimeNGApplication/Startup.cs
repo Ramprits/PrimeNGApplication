@@ -33,7 +33,6 @@ namespace PrimeNGApplication
             services.AddDbContext<AdventureworksContext>(options => options.UseSqlServer(("AdventureWorks")));
             services.AddAutoMapper();
             services.AddScoped<IStoreRepository, StoreRepository>();
-
             services.AddCors(cfg =>
             {
                 cfg.AddPolicy("MyApplication", bldr =>

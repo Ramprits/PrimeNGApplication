@@ -75,6 +75,20 @@ namespace PrimeNGApplication.Controllers
             }
 
         }
+        [HttpDelete]
+        public IActionResult Delete()
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Ok();
+        }
 
     }
 }

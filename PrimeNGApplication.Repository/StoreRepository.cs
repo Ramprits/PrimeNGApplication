@@ -49,6 +49,7 @@ namespace PrimeNGApplication.Repository
 
         public void InsertStoreAsync(Store store)
         {
+            store.Rowguid = new Guid();
             _context.Store.AddAsync(store);
         }
 
@@ -92,7 +93,7 @@ namespace PrimeNGApplication.Repository
             return (await _context.Customer.AnyAsync(x => x.CustomerId == customerId));
         }
 
-        public async Task<IEnumerable<SalesOrderHeader>> GetCustomersForStoreForSalesOrderHeaderAsync( int customerId)
+        public async Task<IEnumerable<SalesOrderHeader>> GetCustomersForStoreForSalesOrderHeaderAsync(int customerId)
         {
             return await _context.SalesOrderHeader.Where(x => x.CustomerId == customerId).OrderByDescending(x => x.SalesOrderId).ToListAsync();
         }

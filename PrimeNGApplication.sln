@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication", "PrimeNGApplication\PrimeNGApplication.csproj", "{34FD82B5-8EB2-449C-974D-6AA92270988D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeNGApplication.Data", "PrimeNGApplication.Data\PrimeNGApplication.Data.csproj", "{33A73EFA-0F34-45E6-B8DF-BA4747370D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication.Data", "PrimeNGApplication.Data\PrimeNGApplication.Data.csproj", "{33A73EFA-0F34-45E6-B8DF-BA4747370D41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication.Interface", "PrimeNGApplication.Interface\PrimeNGApplication.Interface.csproj", "{23D393E6-0F10-467B-B3F5-068C5CF0C898}"
 EndProject
@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication.Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication.Infrastructure", "PrimeNGApplication.Infrastructure\PrimeNGApplication.Infrastructure.csproj", "{C2D7C431-E706-4D9E-B8DF-D4015B6348D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeNGApplication.ViewModel", "PrimeNGApplication.ViewModel\PrimeNGApplication.ViewModel.csproj", "{1306F9F0-062D-4476-88F7-34277CF51DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeNGApplication.ViewModel", "PrimeNGApplication.ViewModel\PrimeNGApplication.ViewModel.csproj", "{1306F9F0-062D-4476-88F7-34277CF51DAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NorthWindDatabase", "NorthWindDatabase", "{9F6F9A2A-40C6-4C89-B8DE-9C8AB6D5157B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeNGApplication.NorthWind", "PrimeNGApplication.NorthWind\PrimeNGApplication.NorthWind.csproj", "{CBCA9099-AA5A-4849-962E-0045B996E14E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{1306F9F0-062D-4476-88F7-34277CF51DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1306F9F0-062D-4476-88F7-34277CF51DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1306F9F0-062D-4476-88F7-34277CF51DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBCA9099-AA5A-4849-962E-0045B996E14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBCA9099-AA5A-4849-962E-0045B996E14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBCA9099-AA5A-4849-962E-0045B996E14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBCA9099-AA5A-4849-962E-0045B996E14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBCA9099-AA5A-4849-962E-0045B996E14E} = {9F6F9A2A-40C6-4C89-B8DE-9C8AB6D5157B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72617577-FED7-464C-9494-9909371AC532}
